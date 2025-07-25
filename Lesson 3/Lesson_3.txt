@@ -1,0 +1,142 @@
+Задача 2:
+
+docker ps
+docker run -d -p 8080:80 --name Chernysh_Pavel_Aleksandrovich-custom-nginx-t2 nginx:1.0.0
+docker ps
+docker rename Chernysh_Pavel_Aleksandrovich-custom-nginx-t2 custom-nginx-t2
+docker ps
+date +"%d-%m-%Y %T.%N %Z" ; sleep 0.150 ; docker ps ; ss -tlpn | grep 127.0.0.1:8080  ; docker logs custom-nginx-t2 -n1 ; docker exec -it custom-nginx-t2 base64 /usr/share/nginx/html/index.html
+curl http://localhost:8080/
+
+Задача 3:
+docker ps
+docker attach custom-nginx-t2
+docker ps -a
+docker start custom-nginx-t2
+docker ps
+docker exec -it custom-nginx-t2 bash
+cd /etc/nginx/conf.d/
+rm default.conf
+cat > default.conf
+server {
+    listen       81;
+    listen  [::]:80;
+    server_name  localhost;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+
+nginx -s reload
+curl http://127.0.0.1:80
+curl http://127.0.0.1:81
+exit
+
+ss -tlpn | grep 127.0.0.1:8080
+docker port custom-nginx-t2
+curl http://127.0.0.1:8080
+
+Был изменен порт 80 на 81, но перенаправление всё еще осталось на 80.
+
+docker rm custom-nginx-t2 -f
+
+Задача 4:
+
+docker pull centos:7
+docker run -v ${PWD}:/data -d centos:7 tail -f /dev/null
+docker ps
+docker pull debian:unstable-slim
+docker run -v ${PWD}:/data -d debian:unstable-slim sleep infinity
+docker ps
+docker exec -it 6ea1d30e68fb bin/bash
+cd data
+cat > home_1.txt
+Черныш Павел Александрович
+
+exit
+
+cat > home_2.txt
+Черныш Павел Александрович
+
+docker exec -it 6ea1d30e68fb bin/bash
+cd data
+ls
+
+Задача 5:
+mkdir -p ./netology/docker/task5
+cd netology/docker/task5
+cat > compose.yaml
+version: "3"
+services:
+  portainer:
+    network_mode: host
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+cat > docker-compose.yaml
+version: "3"
+services:
+  registry:
+    image: registry:2
+
+    ports:
+    - "5000:5000"
+
+docker compose up -d
+
+Путь по умолчанию для файла Compose - это compose.yaml (предпочтительно) или compose.yml 
+Это помещается в рабочий каталог. Композиция также поддерживает docker-compose.yaml и docker-compose.yml 
+Обратная совместимость предыдущих версий. Если оба файла существуют, 
+Compose предпочитает канонический compose.yaml.
+
+nano compose.yaml
+include:
+- docker-compose.yaml
+services:
+  portainer:
+    network_mode: host
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+docker compose up -d
+docker tag nginx:1.0.0 localhost:5000/custom-nginx
+docker push localhost:5000/custom-nginx
+
+Не находит файл описания существующего контейнера.

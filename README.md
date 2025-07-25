@@ -30,7 +30,8 @@ Hey, Netology
 - Предоставьте ответ в виде ссылки на https://hub.docker.com/<username_repo>/custom-nginx/general .
 
 ###Ответ:### Ссылка на DockerHub:[https://hub.docker.com/repository/docker/29a05b897/l3nginx/genera](https://hub.docker.com/repository/docker/29a05b897/l3nginx/genera)
-
+             ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer_1.png)
+             
 ## Задача 2
 1. Запустите ваш образ custom-nginx:1.0.0 командой docker run в соответвии с требованиями:
 - имя контейнера "ФИО-custom-nginx-t2"
@@ -42,7 +43,7 @@ Hey, Netology
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
-###Ответ:###
+###Ответ:### ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer_2.png)
 
 ## Задача 3
 1. Воспользуйтесь docker help или google, чтобы узнать как подключиться к стандартному потоку ввода/вывода/ошибок контейнера "custom-nginx-t2".
@@ -60,6 +61,11 @@ Hey, Netology
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
+###Ответ:### ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%203_1.png)
+             ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%203_2.png)
+             
+#### Был изменен порт 80 на 81, но перенаправление всё еще осталось на 80. 
+
 ## Задача 4
 
 
@@ -72,6 +78,7 @@ Hey, Netology
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
+###Ответ:### ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%204.png)
 
 ## Задача 5
 
@@ -121,6 +128,13 @@ services:
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод, файл compose.yaml , скриншот portainer c задеплоенным компоузом.
 
 ---
+
+
+###Ответ:### ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%205_1.png)
+             ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%205_2.png)
+             ![Картинка](https://github.com/Andromeles/Lesson/blob/main/Lesson%203/Answer%205_3.png)
+
+#### Путь по умолчанию для файла Compose - это compose.yaml (предпочтительно) или compose.yml Это помещается в рабочий каталог. Композиция также поддерживает docker-compose.yaml и docker-compose.yml Обратная совместимость предыдущих версий. Если оба файла существуют, Compose предпочитает канонический compose.yaml.
 
 ### Правила приема
 
